@@ -1,0 +1,9 @@
+venv/
+__pycache__/
+*.pyc
+*.log
+.vscode/
+.idea/
+# generated experiment CSVs; remove this line if you want to commit final results
+tests/results/*.csv
+!tests/results/.gitkeep
