@@ -24,7 +24,7 @@ sudo systemctl status openvswitch-switch    # should say "active"
 ## 2. Get the project code
 
 ```bash
-git clone <YOUR_GITHUB_REPO_URL> sdn-dns-project
+git clone https://github.com/manuraj21k/sdn-dns-project.git sdn-dns-project
 cd sdn-dns-project
 git config user.name  "Your Name"
 git config user.email "you@example.com"

@@ -8,9 +8,9 @@ Course: SDN-Socket Programming (Jackfruit Mini Project). Requirements and rubric
 
 | Role | Member | Folder |
 |---|---|---|
-| Person A: DNS application (UDP server, client, caching) | _name_ | `dns/` |
-| Person B: Mininet topology + Ryu controller | _name_ | `controller/` |
-| Person C: tests, metrics, documentation | _name_ | `tests/`, `docs/` |
+| Person A: DNS application (UDP server, client, caching) | Manuraj | `dns/` |
+| Person B: Mininet topology + Ryu controller | Kashvi | `controller/` |
+| Person C: tests, metrics, documentation | Jitesh | `tests/`, `docs/` |
 
 ## How it works
 
