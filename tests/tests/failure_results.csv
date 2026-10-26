@@ -1,0 +1,4 @@
+timestamp,client,name,result,latency_ms,cache_hit,server
+1792984421.690,client1,web.local,OK,9.113,no,10.0.0.10
+1792984423.748,client1,web.local,TIMEOUT,2009.023,no,-
+1792984427.826,client1,web.local,TIMEOUT,4008.663,no,-
