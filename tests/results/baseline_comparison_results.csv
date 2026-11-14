@@ -1,0 +1,6 @@
+timestamp,client,name,result,latency_ms,cache_hit,server
+1794479744.561,client1,web.local,OK,5.418,no,10.0.0.10
+1794479744.903,client1,mail.local,OK,3.176,no,10.0.0.11
+1794479745.272,client1,web.local,OK,7.838,no,10.0.0.12
+1794479745.616,client1,mail.local,OK,2.237,no,10.0.0.10
+1794479745.969,client1,web.local,OK,2.513,no,10.0.0.11

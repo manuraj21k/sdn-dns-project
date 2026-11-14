@@ -1,0 +1,193 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1">
+<title>DNS Observatory — Demo</title>
+<style>
+:root{font-family:Inter,Segoe UI,Arial,sans-serif;color:#17283b;background:#f4f7f8;font-synthesis:none}*{box-sizing:border-box}body{margin:0}.shell{display:flex;min-height:100vh}.side{width:232px;background:#102934;color:#d3e2df;padding:30px 22px;display:flex;flex-direction:column}.brand{display:flex;gap:11px;align-items:center;font-weight:750;letter-spacing:-.4px;color:white;font-size:17px}.brandmark{width:36px;height:36px;background:#a4e3c7;border-radius:11px;color:#103d35;display:grid;place-items:center;font-weight:900}.side small{display:block;margin:5px 0 35px 47px;color:#89a8a5;letter-spacing:.05em}.nav{border-radius:9px;background:#27454a;color:white;padding:12px;font-size:14px;font-weight:600}.nav span{margin-right:11px}.sidetip{margin-top:auto;border-top:1px solid #36545a;padding-top:20px;font-size:12px;line-height:1.6;color:#adc2bf}.main{padding:34px 44px 45px;max-width:1600px;width:100%;margin:0 auto}.top{display:flex;justify-content:space-between;align-items:center;gap:20px}.eyebrow{text-transform:uppercase;letter-spacing:.14em;font-size:10px;font-weight:800;color:#738c8b}.title{font-size:30px;letter-spacing:-1.3px;margin:8px 0 5px}.sub{color:#71818a;font-size:14px;margin:0}.badge{background:#fff3d8;border:1px solid #f4dfac;color:#87631d;border-radius:99px;padding:8px 12px;font-size:11px;font-weight:750;white-space:nowrap}.notice{margin:25px 0 22px;padding:13px 16px;background:#fff9ea;border:1px solid #f2e3ba;border-radius:10px;color:#765d2f;font-size:13px;line-height:1.5}.notice strong{margin-right:5px}.grid{display:grid;grid-template-columns:minmax(0,1.6fr) minmax(285px,1fr);gap:20px}.card{background:white;border:1px solid #e2eaeb;border-radius:14px;padding:22px;box-shadow:0 7px 26px #173e3f08}.card h2{font-size:16px;letter-spacing:-.3px;margin:0}.cardhead{display:flex;align-items:start;justify-content:space-between;gap:12px}.desc{font-size:12px;color:#829196;line-height:1.55;margin:7px 0 0}.pill{font-size:10px;color:#207f5c;background:#e4f5eb;padding:6px 9px;border-radius:30px;font-weight:750;white-space:nowrap}.pill.warn{color:#87631d;background:#fff3d8}.nodes{display:grid;grid-template-columns:repeat(3,1fr);gap:10px;margin-top:21px}.node{border:1px solid #e9eeee;border-radius:10px;padding:15px 13px;transition:border-color .2s}.node.selected{border-color:#2b8e68;background:#f8fcfa}.node .name{font-size:13px;font-weight:750}.node .ip{font-size:12px;color:#809094;margin:7px 0 14px;font-family:monospace}.state{font-size:11px;font-weight:700}.dot{display:inline-block;width:7px;height:7px;border-radius:50%;background:#35ac7d;margin-right:5px}.down .dot{background:#df795e}.down .state{color:#b4503d}.healthy .state{color:#2b8e68}.unknown .dot{background:#9aa8ab}.unknown .state{color:#6d7d80}.summary{display:flex;align-items:center;gap:13px;margin-top:20px;border-top:1px solid #eef2f1;padding-top:17px}.icon{display:grid;place-items:center;width:39px;height:39px;border-radius:10px;background:#eaf6f0;color:#2f8d69;font-weight:800}.summary strong{font-size:13px;display:block}.summary span{display:block;margin-top:4px;color:#89989a;font-size:11px}.lookup label{font-size:12px;font-weight:700;display:block;margin:20px 0 8px}.form{display:flex;gap:8px}.form input{width:100%;min-width:0;padding:12px;border:1px solid #d7e3e1;border-radius:8px;font:inherit;font-size:13px;outline-color:#459f7f}.button{background:#1b6e59;color:white;border:0;border-radius:8px;padding:0 17px;font-size:12px;font-weight:750;cursor:pointer;white-space:nowrap}.button:hover{background:#125a47}.button:disabled{opacity:.6;cursor:wait}.examples{font-size:11px;color:#8b999a;margin-top:9px}.result{margin-top:20px;padding:16px;background:#f5f9f7;border-radius:10px;min-height:91px}.result .label{font-size:10px;text-transform:uppercase;letter-spacing:.12em;color:#81968e;font-weight:750}.result strong{display:block;font-size:18px;margin:8px 0 4px;color:#255c4b}.result p{margin:0;font-size:12px;color:#758c83}.bottom{display:grid;grid-template-columns:1.15fr 1fr;gap:20px;margin-top:20px}.flow{display:flex;align-items:center;justify-content:space-between;gap:8px;margin:25px 0 12px}.flowitem{text-align:center;flex:1}.flowicon{width:45px;height:45px;margin:0 auto 9px;border-radius:12px;display:grid;place-items:center;background:#eaf4f0;color:#2a8263;font-weight:800;font-size:15px}.flowitem strong{font-size:11px;display:block}.flowitem span{color:#8b9b9a;font-size:10px}.arrow{color:#a8c0b7;font-size:18px}.events{list-style:none;padding:0;margin:17px 0 0;max-height:210px;overflow-y:auto}.events li{border-top:1px solid #f0f3f2;padding:11px 0;display:flex;gap:10px;align-items:baseline;font-size:12px;color:#536d6d}.events time{font-family:monospace;color:#9aabaa;font-size:10px;min-width:55px}.events .empty{color:#8d9f9b}.cardfoot{display:flex;justify-content:space-between;margin-top:12px}.textbtn{background:none;border:0;padding:0;color:#267f64;cursor:pointer;font-weight:700;font-size:11px}.footer{font-size:11px;color:#92a2a1;margin-top:24px}.error strong{color:#a64e3d}@media(max-width:900px){.side{width:70px;padding:25px 15px}.brand span,.side small,.nav b,.sidetip{display:none}.brandmark{flex-shrink:0}.nav{margin-top:38px;text-align:center}.nav span{margin:0}.main{padding:28px}.grid,.bottom{grid-template-columns:1fr}}@media(max-width:520px){.side{display:none}.main{padding:23px 16px}.top{align-items:flex-start}.title{font-size:25px}.nodes{grid-template-columns:1fr}.node{display:flex;align-items:center;justify-content:space-between;gap:8px}.node .ip{margin:4px 0}.flowitem span{font-size:9px}.badge{font-size:10px}.card{padding:18px}}
+</style>
+</head>
+<body><div class="shell"><aside class="side"><div class="brand"><div class="brandmark">◎</div><span>DNS Observatory</span></div><small>SDN PROJECT &nbsp;/&nbsp; 22</small><div class="nav"><span>▦</span><b>Overview</b></div><div class="sidetip">A visual workspace for your DNS-like name resolution project.</div></aside><main class="main"><header class="top"><div><div class="eyebrow">SDN + SOCKET PROGRAMMING</div><h1 class="title">Network overview</h1><p class="sub">A closer look at your DNS service and its servers.</p></div><div class="badge" id="mode-badge">● &nbsp; DEMO MODE</div></header>
+<div class="notice" id="notice"><strong>Demo Mode — Live Controller Bridge.</strong> Connecting to Ryu controller at <code>127.0.0.1:8080</code> for real server health, failover events, and Mininet lookups.</div>
+<section class="grid"><article class="card"><div class="cardhead"><div><h2>Server health</h2><p class="desc">Live backend status monitored by the Ryu SDN controller.</p></div><span class="pill warn" id="health-count">Unknown state</span></div><div class="nodes" id="nodes"></div><div class="summary"><div class="icon">↗</div><div><strong id="active">Waiting for controller telemetry</strong><span id="active-sub">Virtual address 10.0.0.100 · polling every 1.5s</span></div></div></article>
+<article class="card lookup"><div class="cardhead"><div><h2>Try a lookup</h2><p class="desc">Send a real UDP query through Mininet <code>client1</code>.</p></div><span class="eyebrow">UDP / 5353</span></div><form id="lookup-form"><label for="domain">Domain name</label><div class="form"><input id="domain" value="web.local" autocomplete="off" maxlength="64" required><button class="button" id="lookup-btn">Resolve name →</button></div></form><div class="examples">Try web.local or mail.local</div><div class="result" id="result" aria-live="polite"><div class="label">Lookup result</div><strong>Ready to resolve</strong><p>Enter a name to query via Mininet client1.</p></div></article></section>
+<section class="bottom"><article class="card"><div class="cardhead"><div><h2>How a query travels</h2><p class="desc">Live packet path through your OpenFlow switch.</p></div></div><div class="flow"><div class="flowitem"><div class="flowicon">▣</div><strong>Client</strong><span>Asks for a name</span></div><span class="arrow">→</span><div class="flowitem"><div class="flowicon">⇄</div><strong>SDN switch</strong><span>Forwards request</span></div><span class="arrow">→</span><div class="flowitem"><div class="flowicon">◫</div><strong>DNS server</strong><span>Returns an IP</span></div></div></article><article class="card"><div class="cardhead"><div><h2>Activity</h2><p class="desc">Live failover, recovery, and routing events from Ryu.</p></div><span class="eyebrow">CONTROLLER LOG</span></div><ul class="events" id="events" aria-live="polite"></ul><div class="cardfoot"><span class="desc">Newest events first</span><button class="textbtn" id="refresh-btn" type="button">Refresh now ↻</button></div></article></section><div class="footer">PROJECT 22 &nbsp; / &nbsp; Distributed DNS-like name resolution</div></main></div>
+<script>
+const API_BASE = 'http://127.0.0.1:8080';
+const DEFAULT_SERVERS = [
+  { id: 'dns1', ip: '10.0.0.10', status: 'UNKNOWN' },
+  { id: 'dns2', ip: '10.0.0.11', status: 'UNKNOWN' },
+  { id: 'dns3', ip: '10.0.0.12', status: 'UNKNOWN' }
+];
+
+const nodesEl = document.querySelector('#nodes');
+const eventsEl = document.querySelector('#events');
+const resultEl = document.querySelector('#result');
+const healthPill = document.querySelector('#health-count');
+const activeEl = document.querySelector('#active');
+const activeSubEl = document.querySelector('#active-sub');
+const noticeEl = document.querySelector('#notice');
+
+function renderServers(servers, selectedIp, forceUnknown) {
+  nodesEl.replaceChildren();
+  let healthyCount = 0;
+
+  for (const s of servers) {
+    const rawStatus = forceUnknown ? 'UNKNOWN' : (s.status || 'UNKNOWN').toUpperCase();
+    const isUp = rawStatus === 'UP';
+    const isDown = rawStatus === 'DOWN';
+    if (isUp) healthyCount++;
+
+    const card = document.createElement('div');
+    card.className = 'node ' + (isUp ? 'healthy' : isDown ? 'down' : 'unknown');
+    if (!forceUnknown && selectedIp && s.ip === selectedIp) {
+      card.classList.add('selected');
+    }
+
+    const name = document.createElement('div');
+    name.className = 'name';
+    name.textContent = s.id + (!forceUnknown && selectedIp === s.ip ? ' (selected)' : '');
+
+    const ip = document.createElement('div');
+    ip.className = 'ip';
+    ip.textContent = s.ip;
+
+    const state = document.createElement('div');
+    state.className = 'state';
+    const dot = document.createElement('span');
+    dot.className = 'dot';
+    const labelText = isUp ? 'Healthy' : isDown ? 'Unavailable' : 'Unknown';
+    state.append(dot, document.createTextNode(labelText));
+
+    card.append(name, ip, state);
+    nodesEl.append(card);
+  }
+
+  if (forceUnknown) {
+    healthPill.textContent = 'Status unknown';
+    healthPill.className = 'pill warn';
+  } else {
+    healthPill.textContent = `${healthyCount} / ${servers.length} available`;
+    healthPill.className = healthyCount > 0 ? 'pill' : 'pill warn';
+  }
+}
+
+function renderEvents(events, forceUnknown) {
+  eventsEl.replaceChildren();
+  if (!events || !events.length) {
+    const empty = document.createElement('li');
+    empty.className = 'empty';
+    empty.textContent = forceUnknown
+      ? 'Controller unreachable. Start Ryu and Mininet to stream live events.'
+      : 'No controller events recorded yet.';
+    eventsEl.append(empty);
+    return;
+  }
+
+  for (const item of events) {
+    const li = document.createElement('li');
+    const time = document.createElement('time');
+    time.textContent = item.time || '--:--:--';
+    const msg = document.createElement('span');
+    msg.textContent = item.type ? `[${item.type}] ${item.message}` : item.message;
+    li.append(time, msg);
+    eventsEl.append(li);
+  }
+}
+
+function applyUnknownState(reason) {
+  renderServers(DEFAULT_SERVERS, null, true);
+  renderEvents([], true);
+  activeEl.textContent = 'Server status unknown';
+  activeSubEl.textContent = `${reason} · virtual address 10.0.0.100`;
+  noticeEl.innerHTML = `<strong>Demo Mode — Live status unavailable (${reason}).</strong> Start Ryu (<code>dns_controller.py</code>) and Mininet to see real server states.`;
+}
+
+async function pollControllerState() {
+  try {
+    const res = await fetch(`${API_BASE}/api/state`, { cache: 'no-store' });
+    if (!res.ok) throw new Error(`HTTP ${res.status}`);
+    const data = await res.json();
+
+    const staleLimit = data.stale_after_sec || 5.0;
+    const ageSec = (Date.now() / 1000) - (data.timestamp || 0);
+    if (ageSec > staleLimit) {
+      applyUnknownState('Telemetry outdated');
+      return;
+    }
+
+    const servers = data.servers && data.servers.length ? data.servers : DEFAULT_SERVERS;
+    const selectedIp = data.selected_server || null;
+    const selectedObj = servers.find(s => s.ip === selectedIp);
+
+    renderServers(servers, selectedIp, false);
+    renderEvents(data.events || [], false);
+
+    if (selectedObj) {
+      activeEl.textContent = `${selectedObj.id} (${selectedObj.ip}) is selected`;
+    } else if (selectedIp) {
+      activeEl.textContent = `${selectedIp} is selected`;
+    } else {
+      activeEl.textContent = 'No active server selected';
+    }
+    activeSubEl.textContent = `Connected to Ryu · virtual address 10.0.0.100`;
+    noticeEl.innerHTML = '<strong>Demo Mode — Connected to Ryu Controller.</strong> Showing live backend health, automatic failover events, and real Mininet lookups.';
+  } catch (err) {
+    applyUnknownState('Controller offline');
+  }
+}
+
+document.querySelector('#lookup-form').addEventListener('submit', async (e) => {
+  e.preventDefault();
+  const domain = document.querySelector('#domain').value.trim().toLowerCase();
+  if (!domain) return;
+
+  const btn = document.querySelector('#lookup-btn');
+  btn.disabled = true;
+  btn.textContent = 'Resolving...';
+  resultEl.classList.remove('error');
+  resultEl.innerHTML = `<div class="label">Lookup result</div><strong>Querying ${domain}...</strong><p>Sending UDP packet from Mininet client1 to 10.0.0.100:5353</p>`;
+
+  try {
+    const res = await fetch(`${API_BASE}/api/lookup`, {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ client: 'client1', domain })
+    });
+    const data = await res.json();
+
+    const label = document.createElement('div');
+    label.className = 'label';
+    label.textContent = 'Live Mininet lookup result';
+
+    const title = document.createElement('strong');
+    const detail = document.createElement('p');
+
+    if (data.status === 'OK') {
+      title.textContent = data.answer_ip;
+      detail.textContent = `${data.domain} · answered by ${data.server_id} (${data.server_ip}) in ${data.latency_ms} ms`;
+    } else {
+      resultEl.classList.add('error');
+      title.textContent = data.status || 'Lookup failed';
+      detail.textContent = data.message || `No response for ${domain} via Mininet client1.`;
+    }
+
+    resultEl.replaceChildren(label, title, detail);
+    await pollControllerState();
+  } catch (err) {
+    resultEl.classList.add('error');
+    resultEl.innerHTML = '<div class="label">Lookup result</div><strong>Controller unreachable</strong><p>Ensure Ryu and Mininet are running before sending a lookup.</p>';
+  } finally {
+    btn.disabled = false;
+    btn.textContent = 'Resolve name →';
+  }
+});
+
+document.querySelector('#refresh-btn').addEventListener('click', pollControllerState);
+
+applyUnknownState('Initializing');
+pollControllerState();
+setInterval(pollControllerState, 1500);
+</script>
+</body>
+</html>

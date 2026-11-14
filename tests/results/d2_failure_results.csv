@@ -1,0 +1,15 @@
+timestamp,client,name,result,latency_ms,cache_hit,server
+1794479804.080,client1,web.local,OK,2.210,no,10.0.0.12
+1794479805.164,client1,web.local,OK,1010.511,no,10.0.0.11
+1794479805.411,client1,web.local,OK,2.669,no,10.0.0.12
+1794479806.658,client1,web.local,OK,1010.800,no,10.0.0.11
+1794479806.901,client1,web.local,OK,2.398,no,10.0.0.12
+1794479808.150,client1,web.local,OK,1007.896,no,10.0.0.11
+1794479808.392,client1,web.local,OK,2.900,no,10.0.0.12
+1794479809.642,client1,web.local,OK,1008.013,no,10.0.0.11
+1794479809.885,client1,web.local,OK,2.197,no,10.0.0.12
+1794479811.163,client1,web.local,OK,1013.778,no,10.0.0.11
+1794479811.406,client1,web.local,OK,6.669,no,10.0.0.12
+1794479812.657,client1,web.local,OK,1008.255,no,10.0.0.11
+1794479812.903,client1,web.local,OK,2.505,no,10.0.0.12
+1794479814.150,client1,web.local,OK,1007.648,no,10.0.0.11

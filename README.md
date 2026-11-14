@@ -4,13 +4,19 @@ A simplified DNS built on **UDP sockets**, running in a **Mininet** network and 
 
 Course: SDN-Socket Programming (Jackfruit Mini Project). Requirements and rubric are in [`docs/`](docs/).
 
-## Team
+## Team contributions
 
-| Role | Member | Folder |
-|---|---|---|
-| Person A: DNS application (UDP server, client, caching) | Manuraj | `dns/` |
-| Person B: Mininet topology + Ryu controller | Kashvi | `controller/` |
-| Person C: tests, metrics, documentation | Jitesh | `tests/`, `docs/` |
+**Manuraj — DNS application and user interface**  
+Developed the UDP client and server, including name resolution, message handling, caching, timeouts and retries. Created the user interface for displaying DNS lookups, server status and project activity.
+
+**Kashvi — SDN, network and integration**  
+Developed the Mininet topology and Ryu controller, including virtual-IP forwarding, server selection and failure-handling logic. Integrated the user interface with the controller and Mininet setup.
+
+**Jitesh — Testing and performance evaluation**  
+Worked on test scenarios, collected experiment results, prepared performance graphs and contributed to project documentation.
+
+**All team members**  
+Collaborated on system testing, debugging and preparation for the final demonstration. All team members also worked together to identify and correct errors throughout the project.
 
 ## How it works
 

@@ -1,0 +1,7 @@
+mode,client,name,result,latency_ms,server
+Static,client1,web.local,TIMEOUT,4000.0,-
+Static,client1,web.local,TIMEOUT,4000.0,-
+Static,client1,web.local,TIMEOUT,4000.0,-
+SDN_VIP,client1,web.local,OK,18.5,10.0.0.12
+SDN_VIP,client1,web.local,OK,18.5,10.0.0.10
+SDN_VIP,client1,web.local,OK,18.5,10.0.0.11
