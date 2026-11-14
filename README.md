@@ -1,8 +1,71 @@
-# SDN + Socket Programming: DNS-Like Name Resolution (Project 22)
+# SDN-Based DNS-Like Name Resolution
 
-A simplified DNS built on **UDP sockets**, running in a **Mininet** network and managed by an **SDN controller (Ryu)**. Clients look up names such as `web.local` and get an IP back. The controller decides which real DNS server receives each query, and **redirects queries automatically when a server fails or slows down**.
+Project 22 of the SDN–Socket Programming mini project. This project combines a UDP-based name-resolution service with a Mininet network, a Ryu SDN controller, and a web dashboard.
 
-Course: SDN-Socket Programming (Jackfruit Mini Project). Requirements and rubric are in [`docs/`](docs/).
+Clients request a name such as `web.local` and receive its IP address. The controller directs requests addressed to a virtual service IP to one of the available DNS-like servers. Its health-check logic is designed to detect unavailable servers and route requests to healthy ones.
+
+This is a **DNS-like learning prototype** using a custom text protocol. It is not a full implementation of standard Internet DNS.
+
+## Architecture
+
+```text
+Client 1 (10.0.0.1) ──┐             ┌── dns1 (10.0.0.10)
+                       ├── Switch ───┼── dns2 (10.0.0.11)
+Client 2 (10.0.0.2) ──┘      │      └── dns3 (10.0.0.12)
+                              │
+                        Ryu controller
+
+Clients query the virtual IP 10.0.0.100 on UDP port 5353.
+```
+
+## Features
+
+- UDP client and server with name-to-IP mappings in `dns/records.json`.
+- Application messages for successful answers, unknown names and health checks.
+- Client-side caching with a time to live, timeouts, retries and latency logging.
+- Concurrent request handling on the server.
+- Mininet topology with two clients, three server hosts and an OpenFlow switch.
+- Ryu controller with virtual-IP forwarding, server health checks and server selection.
+- Web dashboard for server status, controller events and lookups through the controller API.
+- Scripts and saved output for lookup, failure and performance experiments.
+
+Public website entries in the records file are **fixed examples**. They can change or differ by location; looking them up here reads the local file, not a live public DNS service.
+
+## Project structure
+
+```text
+controller/    Mininet topology and Ryu controller
+dns/           UDP client, server and records
+ui/            Web dashboard
+tests/         Test scripts, saved results and graphs
+docs/          Project guidelines and rubric
+```
+
+## Running the project
+
+The complete setup needs Linux, Python 3, Mininet, Open vSwitch and Ryu. Run commands from the repository root; see [SETUP.md](SETUP.md) for installation guidance. The topology in `controller/topology.py` uses the addresses shown above; the older `INTERFACE.md` describes a different address plan.
+
+To try the UDP application on one computer, start the server in one terminal:
+
+```bash
+python3 dns/server.py --id dns1 --ip 127.0.0.1 --port 5353 --records dns/records.json
+```
+
+In another terminal:
+
+```bash
+python3 dns/client.py --server 127.0.0.1 --port 5353 --name web.local
+```
+
+For the Mininet demo, start the Ryu controller and topology as described in [SETUP.md](SETUP.md), start the DNS server processes in the Mininet server hosts, then send queries from a client host. The dashboard expects the controller API at `127.0.0.1:8080` and its lookup bridge needs access to Mininet and `mnexec` on the machine running the controller.
+
+## Testing and results
+
+The `tests/` directory contains scripts for normal lookups, failure scenarios and multiple-client experiments. Saved CSVs and graphs are under `tests/results/`.
+
+**Comparison limitation:** `tests/run_comprehensive_comparison.py` currently writes fixed outcome and latency values instead of recording the command's actual measurements. Its comparison CSV and graph must not be treated as measured results. Correct the script and rerun the comparison before reporting performance. The current multi-client script runs its queries sequentially and does not alone demonstrate concurrent queries from distinct Mininet hosts.
+
+**Dashboard security:** The controller API uses request input in a shell command and permits cross-origin requests. Validate inputs, remove shell interpolation and restrict API access before exposing it beyond a trusted test environment.
 
 ## Team contributions
 
@@ -17,67 +80,3 @@ Worked on test scenarios, collected experiment results, prepared performance gra
 
 **All team members**  
 Collaborated on system testing, debugging and preparation for the final demonstration. All team members also worked together to identify and correct errors throughout the project.
-
-## How it works
-
-```
- h1 ─┐                                   ┌─ dns1 (10.0.0.11)
- h2 ─┼── switch(es) ── OpenFlow ── Ryu ──┼─ dns2 (10.0.0.12)
- h3 ─┘                  controller       └─ dns3 (10.0.0.13)  (optional)
-
- Clients query the virtual IP 10.0.0.100:5353.
- The controller maps it to a healthy real DNS server.
-```
-
-- **Sockets:** UDP client and server, timeouts and retries, client-side cache with TTL, concurrent request handling.
-- **SDN:** controller detects a failed or slow server and rewrites flow rules to redirect traffic.
-- **Evaluation:** lookup latency, success rate and recovery time, compared against a static baseline (no redirection).
-
-The full message format, IP plan and rules are in [`INTERFACE.md`](INTERFACE.md).
-
-## Quick start
-
-1. Set up your machine: see [`SETUP.md`](SETUP.md).
-2. Try the DNS app alone (no Mininet needed):
-   ```bash
-   # terminal 1
-   python3 dns/server.py --id dns1 --ip 127.0.0.1 --port 5353 --records dns/records.json
-   # terminal 2
-   python3 dns/client.py --server 127.0.0.1 --port 5353 --name web.local
-   ```
-3. Run the full system (once the controller and topology exist): see `SETUP.md` section 4, later `./run_all.sh`.
-
-## Repo layout
-
-```
-.
-├── README.md
-├── SETUP.md            install steps
-├── INTERFACE.md        shared contract (messages, ports, IPs, logs)
-├── run_all.sh          start everything (to be written)
-├── requirements.txt
-├── dns/                Person A: server.py, client.py, records.json
-├── controller/         Person B: dns_controller.py, topology.py
-├── tests/              Person C: names.txt, experiment scripts, results/
-└── docs/               project sheet, rubric, final report, diagrams
-```
-
-## Status
-
-| Item | Owner | Status |
-|---|---|---|
-| UDP DNS server and client | A | first version done (localhost-tested) |
-| Caching, timeouts, retries | A | first version done (localhost-tested) |
-| Mininet topology | B | not started |
-| Ryu controller (forwarding) | B | not started |
-| Failure detection + redirection | B | not started |
-| Static baseline | B + C | not started |
-| Experiments and graphs | C | not started |
-| Final report and demo | all | not started |
-
-## Team workflow
-
-- One branch per person (`dns-work`, `controller-work`, `tests-work`); merge to `main` through pull requests reviewed by another member.
-- Only edit files in your own folder. Ask the owner for changes elsewhere.
-- Changes to `INTERFACE.md` need a message to the other two first.
-- Everyone must be able to run the whole system on their own machine, and be able to explain all three parts in the viva.
